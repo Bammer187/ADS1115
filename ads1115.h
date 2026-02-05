@@ -103,8 +103,15 @@
 #define ADS_REG_CONFIG_COMP_MODE_TRAD	(0x0000) // Traditional comparator (default)
 #define ADS_REG_CONFIG_COMP_MODE_WINDOW	(0x0010) // Window comparator
 
-#define ADS_REG_CONFIG_COMP_POL_MASK	(0x0010)
-#define ADS_REG_CONFIG_COMP_POL_MASK	(0x0010)
-#define ADS_REG_CONFIG_COMP_QUE_MASK	(0x0010)
+// --------------------------------------------
+// COMP POL (COMPARATOR POLARITY)
+// --------------------------------------------
+
+#define ADS_REG_CONFIG_COMP_POL_MASK	(0x0008)
+#define ADS_REG_CONFIG_COMP_POL_LOW		(0x0000) // Active low (default)
+#define ADS_REG_CONFIG_COMP_POL_HIGH	(0x0008) // Active high
+
+#define ADS_REG_CONFIG_COMP_LAT_MASK	(0x0004)
+#define ADS_REG_CONFIG_COMP_QUE_MASK	(0x0003)
 
 #endif
