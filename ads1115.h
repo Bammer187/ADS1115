@@ -95,7 +95,14 @@
 #define ADS_REG_CONFIG_DR_475SPS    	(0x00C0)
 #define ADS_REG_CONFIG_DR_860SPS    	(0x00E0)
 
+// --------------------------------------------
+// COMP MODE (COMPARATOR MODE)
+// --------------------------------------------
+
 #define ADS_REG_CONFIG_COMP_MODE_MASK	(0x0010)
+#define ADS_REG_CONFIG_COMP_MODE_TRAD	(0x0000) // Traditional comparator (default)
+#define ADS_REG_CONFIG_COMP_MODE_WINDOW	(0x0010) // Window comparator
+
 #define ADS_REG_CONFIG_COMP_POL_MASK	(0x0010)
 #define ADS_REG_CONFIG_COMP_POL_MASK	(0x0010)
 #define ADS_REG_CONFIG_COMP_QUE_MASK	(0x0010)
