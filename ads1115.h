@@ -68,7 +68,7 @@
 #define ADS_REG_CONFIG_PGA_MASK     	(0x0E00)
 #define ADS_REG_CONFIG_PGA_6_144V   	(0x0000) // +/-6.144V range
 #define ADS_REG_CONFIG_PGA_4_096V   	(0x0200) // +/-4.096V range
-#define ADS_REG_CONFIG_PGA_2_048V   	(0x0400) // +/-2.048V range (Default)
+#define ADS_REG_CONFIG_PGA_2_048V   	(0x0400) // +/-2.048V range (default)
 #define ADS_REG_CONFIG_PGA_1_024V   	(0x0600) // +/-1.024V range
 #define ADS_REG_CONFIG_PGA_0_512V   	(0x0800) // +/-0.512V range
 #define ADS_REG_CONFIG_PGA_0_256V   	(0x0A00) // +/-0.256V range
@@ -90,7 +90,7 @@
 #define ADS_REG_CONFIG_DR_16SPS     	(0x0020)
 #define ADS_REG_CONFIG_DR_32SPS     	(0x0040)
 #define ADS_REG_CONFIG_DR_64SPS     	(0x0060)
-#define ADS_REG_CONFIG_DR_128SPS    	(0x0080) // (Default)
+#define ADS_REG_CONFIG_DR_128SPS    	(0x0080) // (default)
 #define ADS_REG_CONFIG_DR_250SPS    	(0x00A0)
 #define ADS_REG_CONFIG_DR_475SPS    	(0x00C0)
 #define ADS_REG_CONFIG_DR_860SPS    	(0x00E0)
@@ -119,6 +119,14 @@
 #define ADS_REG_CONFIG_COMP_LAT_OFF		(0x0000) // Non-latching (Default)
 #define ADS_REG_CONFIG_COMP_LAT_ON		(0x0004) // Latching (stays active until read)
 
+// --------------------------------------------
+// COMP QUE (COMPARATOR QUEUE)
+// --------------------------------------------
+
 #define ADS_REG_CONFIG_COMP_QUE_MASK	(0x0003)
+#define ADS_REG_CONFIG_COMP_QUE_1CONV   (0x0000) // Assert after one conversion
+#define ADS_REG_CONFIG_COMP_QUE_2CONV   (0x0001) // Assert after two conversions
+#define ADS_REG_CONFIG_COMP_QUE_4CONV   (0x0002) // Assert after four conversions
+#define ADS_REG_CONFIG_COMP_QUE_DIS     (0x0003) // Disable comparator and set ALERT/RDY to high-impedance (default)
 
 #endif
