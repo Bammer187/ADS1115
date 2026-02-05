@@ -44,7 +44,7 @@ static esp_err_t ads1115_begin(ads1115_t *ads)
     ads->config = ADS_REG_CONFIG_MODE_SINGLE | ADS_REG_CONFIG_PGA_2_048V | 
                   ADS_REG_CONFIG_DR_128SPS | ADS_REG_CONFIG_COMP_QUE_DIS;
     
-    return write_register(ads, ADS1115_CONFIG_REGISTER_ADDR, ads->config);
+    return write_register(ads, ADS_REG_CONFIG_ADRESS, ads->config);
 }
 
 
@@ -89,17 +89,17 @@ static uint16_t measure_differential(ads1115_t *ads, uint16_t mux_setting)
     ads->config |= ADS_REG_CONFIG_OS_START;
 
 
-    if (write_register(ads, ADS1115_CONFIG_REGISTER_ADDR, ads->config) != ESP_OK) {
+    if (write_register(ads, ADS_REG_CONFIG_ADRESS, ads->config) != ESP_OK) {
         return 0;
     }
 
     uint16_t status = 0;
     do {
-        read_register(ads, ADS1115_CONFIG_REGISTER_ADDR, &status);
+        read_register(ads, ADS_REG_CONFIG_ADDRESS, &status);
     } while ((status & ADS_REG_CONFIG_OS_MASK) == 0);
 
     uint16_t raw_value = 0;
-    read_register(ads, ADS1115_CONVERSION_REGISTER_ADDR, &raw_value);
+    read_register(ads, ADS_REG_CONVERSION_ADDRESS, &raw_value);
 
     return raw_value;
 }
@@ -157,4 +157,15 @@ float ads1115_raw_to_voltage(ads1115_t *ads, int16_t raw)
         default: fsr = 2.048f;
     }
     return (float)raw * (fsr / 32768.0f);
+}
+
+
+void ads1115_enable_rdy_pin(ads1115_t *ads)
+{
+    write_register(ads, ADS_REG_HITHRESH_ADRESS, 0x8000);
+    write_register(ads, ADS_REG_LOTHRESH_ADRESS, 0x0000);
+    
+    ads->config &= ~ADS_REG_CONFIG_COMP_QUE_MASK;
+    ads->config |= ADS_REG_CONFIG_COMP_QUE_1CONV;
+    write_register(ads, ADS_REG_CONFIG_ADRESS, ads->config);
 }

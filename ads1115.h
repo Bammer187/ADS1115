@@ -16,11 +16,10 @@
 // REGISTER ADDRESS
 // --------------------------------------------
 
-#define ADS_REG_MASK 		(0x03)
-#define ADS_REG_CONVERSION	(0x00)
-#define ADS_REG_CONFIG 		(0x01)
-#define ADS_REG_LOTHRESH 	(0x02)
-#define ADS_REG_HITHRESH 	(0x03)
+#define ADS_REG_CONVERSION_ADDRESS	(0x00)
+#define ADS_REG_CONFIG_ADDRESS 		(0x01)
+#define ADS_REG_LOTHRESH_ADRESS 	(0x02)
+#define ADS_REG_HITHRESH_ADRESS 	(0x03)
 
 // --------------------------------------------
 // REGISTER CONFIG
@@ -284,6 +283,7 @@ int16_t ads1115_differential_1_3(ads1115_t *ads);
 
 /**
  * @brief Converts a raw ADC value to a voltage in Volts.
+ * 
  *	 	  This function calculates the voltage based on the current Gain (FSR) 
  * 		  setting stored in the device structure.
  *
@@ -293,5 +293,21 @@ int16_t ads1115_differential_1_3(ads1115_t *ads);
  * @return      The calculated voltage in Volts.
  */
 float ads1115_raw_to_voltage(ads1115_t *ads, int16_t raw);
+
+/**
+ * @brief Enables the ALERT/RDY pin to signal when a conversion is ready.
+ * 
+ * 		  This function configures the ADS1115's threshold registers and 
+ * 		  comparator settings to work in "Conversion Ready" mode. In this mode, 
+ * 		  the ALERT/RDY pin pulses LOW for approximately 8 microseconds when 
+ * 		  a conversion is complete and the data is ready to be read.
+ * 
+ * 		  Note: To use this feature, the ALERT/RDY pin must be connected 
+ * 		  to a GPIO on the microcontroller (e.g., an interrupt-capable pin). 
+ * 		  The pin requires a pull-up resistor to VDD.
+ * 
+ * @param ads 	Pointer to the device structure.
+ */
+void ads1115_enable_rdy_pin(ads1115_t *ads);
 
 #endif
