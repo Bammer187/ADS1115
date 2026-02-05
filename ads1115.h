@@ -1,6 +1,8 @@
 #ifndef ADS1115_H
 #define ADS1115_H
 
+#include "driver/i2c_master.h"
+
 // --------------------------------------------
 // I2C ADDRESS
 // --------------------------------------------
@@ -14,10 +16,11 @@
 // REGISTER ADDRESS
 // --------------------------------------------
 
-#define ADS_REG_CONVERSION (0x00)
-#define ADS_REG_CONFIG (0x01)
-#define ADS_REG_LOTHRESH (0x02)
-#define ADS_REG_HITHRESH (0x03)
+#define ADS_REG_MASK 		(0x03)
+#define ADS_REG_CONVERSION	(0x00)
+#define ADS_REG_CONFIG 		(0x01)
+#define ADS_REG_LOTHRESH 	(0x02)
+#define ADS_REG_HITHRESH 	(0x03)
 
 // --------------------------------------------
 // REGISTER CONFIG
@@ -52,7 +55,7 @@
 // --------------------------------------------
 
 #define ADS_REG_CONFIG_MUX_MASK     	(0x7000)
-#define ADS_REG_CONFIG_MUX_0_1			(0x0000) // Differential P=AIN0, N=AIN1 (Default)
+#define ADS_REG_CONFIG_MUX_0_1			(0x0000) // Differential P=AIN0, N=AIN1 (default)
 #define ADS_REG_CONFIG_MUX_0_3			(0x1000) // Differential P=AIN0, N=AIN3
 #define ADS_REG_CONFIG_MUX_1_3			(0x2000) // Differential P=AIN1, N=AIN3
 #define ADS_REG_CONFIG_MUX_2_3			(0x3000) // Differential P=AIN2, N=AIN3
@@ -128,5 +131,20 @@
 #define ADS_REG_CONFIG_COMP_QUE_2CONV   (0x0001) // Assert after two conversions
 #define ADS_REG_CONFIG_COMP_QUE_4CONV   (0x0002) // Assert after four conversions
 #define ADS_REG_CONFIG_COMP_QUE_DIS     (0x0003) // Disable comparator and set ALERT/RDY to high-impedance (default)
+
+typedef enum {
+    ADS_FSR_6_144V = ADS_REG_CONFIG_PGA_6_144V,
+    ADS_FSR_4_096V = ADS_REG_CONFIG_PGA_4_096V,
+    ADS_FSR_2_048V = ADS_REG_CONFIG_PGA_2_048V,
+    ADS_FSR_1_024V = ADS_REG_CONFIG_PGA_1_024V,
+    ADS_FSR_0_512V = ADS_REG_CONFIG_PGA_0_512V,
+    ADS_FSR_0_256V = ADS_REG_CONFIG_PGA_0_256V
+} ads1115_fsr_t;
+
+typedef struct {
+	uint16_t address;
+	i2c_master_dev_handle_t i2c_handle;
+	ads1115_fsr_t gain;
+}ads1115_t;
 
 #endif
