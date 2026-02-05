@@ -41,6 +41,8 @@
  * Bits [1:0]    : COMP_QUE (Comparator queue and disable)
  */
 
+#define ADS_REG_CONFIG_RESET			(0x8583)
+
 // --------------------------------------------
 // OS - OPERATIONAL STATUS
 // --------------------------------------------
@@ -145,6 +147,23 @@ typedef struct {
 	uint16_t address;
 	i2c_master_dev_handle_t i2c_handle;
 	ads1115_fsr_t gain;
+	uint16_t config;
 }ads1115_t;
+
+/**
+ * @brief Initialize the ADS1115 device structure with I2C handle and address.
+ *
+ * 		  This function configures the software representation of the ADS1115 
+ * 		  by associating it with a previously created I2C master device handle.
+ * 		  It sets the default gain (PGA), operational mode, and initial 
+ * 		  shadow register values required for subsequent I2C transactions.
+ *
+ * @param handle  I2C master device handle obtained from i2c_master_bus_add_device.
+ * @param addr    7-bit I2C slave address of the ADS1115.
+ *
+ * @return 
+ * 		  - An ads1115_t structure containing the device handle and default settings.
+ */
+ads1115_t ads1115_init(i2c_master_dev_handle_t handle, uint16_t addr);
 
 #endif
