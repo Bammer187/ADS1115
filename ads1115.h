@@ -282,4 +282,16 @@ int16_t ads1115_differential_1_3(ads1115_t *ads);
  */
 int16_t ads1115_differential_1_3(ads1115_t *ads);
 
+/**
+ * @brief Converts a raw ADC value to a voltage in Volts.
+ *	 	  This function calculates the voltage based on the current Gain (FSR) 
+ * 		  setting stored in the device structure.
+ *
+ * @param ads   Pointer to the device structure.
+ * @param raw   The raw int16_t value from the ADC.
+ * 
+ * @return      The calculated voltage in Volts.
+ */
+float ads1115_raw_to_voltage(ads1115_t *ads, int16_t raw);
+
 #endif

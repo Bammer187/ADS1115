@@ -142,3 +142,19 @@ int16_t ads1115_differential_2_3(ads1115_t *ads)
 {
     return (int16_t)measure_differential(ads, ADS_REG_CONFIG_MUX_DIFF_2_3);
 }
+
+
+float ads1115_raw_to_voltage(ads1115_t *ads, int16_t raw)
+{
+    float fsr = 0.0f;
+    switch (ads->gain) {
+        case ADS_FSR_6_144V: fsr = 6.144f; break;
+        case ADS_FSR_4_096V: fsr = 4.096f; break;
+        case ADS_FSR_2_048V: fsr = 2.048f; break;
+        case ADS_FSR_1_024V: fsr = 1.024f; break;
+        case ADS_FSR_0_512V: fsr = 0.512f; break;
+        case ADS_FSR_0_256V: fsr = 0.256f; break;
+        default: fsr = 2.048f;
+    }
+    return (float)raw * (fsr / 32768.0f);
+}
