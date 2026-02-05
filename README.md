@@ -3,6 +3,7 @@ This is a lightweight, non-blocking C library for the ADS1115 16-bit ADC, design
 
 ## Table of Contents
   - [Features](#features)
+  - [Installation](#installation)
   - [Example](#example)
   - [License](#license)
 
@@ -13,6 +14,17 @@ This is a lightweight, non-blocking C library for the ADS1115 16-bit ADC, design
 - Differential Measurements: Support for measuring voltage differences (e.g., across shunts).
 - Configurable Gain & SPS: Easy-to-use enums for Full Scale Range and Data Rate.
 - Polling Synchronization: Ensures data is ready before reading (checks OS bit).
+
+## Installation
+
+### Manual Integration
+
+Copy the source files (`ads1115.c` and `ads1115.h`) into your project's components or main directory. Ensure the header file is accessible within your include path
+
+### Add as submodule
+`git submodule add https://github.com/Bammer187/ADS1115.git components/ads1115`
+
+Don't forget to update your `CMakeLists.txt`!
 
 ## Example
 Simple example where the data from channel 0 is read and printed.
