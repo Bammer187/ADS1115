@@ -47,4 +47,12 @@
 #define ADS_REG_CONFIG_COMP_POL_MASK	(0x0010)
 #define ADS_REG_CONFIG_COMP_QUE_MASK	(0x0010)
 
+// --------------------------------------------
+// OS - OPERATIONAL STATUS
+// --------------------------------------------
+
+#define ADS_REG_CONFIG_OS_START		(0x8000) // Start a single conversion
+#define ADS_REG_CONFIG_OS_ACTIVE	(0x0000) // Currently performing a conversion
+#define ADS_REG_CONFIG_OS_IDLE		(0x8000) // Not performing a conversion
+
 #endif
