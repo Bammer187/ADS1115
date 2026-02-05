@@ -37,20 +37,12 @@
  * Bit [2]       : COMP_LAT (Latching comparator)
  * Bits [1:0]    : COMP_QUE (Comparator queue and disable)
  */
-#define ADS_REG_CONFIG_OS_MASK			(0x8000)
-#define ADS_REG_CONFIG_MUX_MASK     	(0x7000)
-#define ADS_REG_CONFIG_PGA_MASK     	(0x0E00)
-#define ADS_REG_CONFIG_MODE_MASK    	(0x0100)
-#define ADS_REG_CONFIG_DR_MASK      	(0x00E0)
-#define ADS_REG_CONFIG_COMP_MODE_MASK	(0x0010)
-#define ADS_REG_CONFIG_COMP_POL_MASK	(0x0010)
-#define ADS_REG_CONFIG_COMP_POL_MASK	(0x0010)
-#define ADS_REG_CONFIG_COMP_QUE_MASK	(0x0010)
 
 // --------------------------------------------
 // OS - OPERATIONAL STATUS
 // --------------------------------------------
 
+#define ADS_REG_CONFIG_OS_MASK			(0x8000)
 #define ADS_REG_CONFIG_OS_START			(0x8000) // Start a single conversion
 #define ADS_REG_CONFIG_OS_ACTIVE		(0x0000) // Currently performing a conversion
 #define ADS_REG_CONFIG_OS_IDLE			(0x8000) // Not performing a conversion
@@ -59,6 +51,7 @@
 // MUX (INPUT MULTIPLEXER CONFIGURATION)
 // --------------------------------------------
 
+#define ADS_REG_CONFIG_MUX_MASK     	(0x7000)
 #define ADS_REG_CONFIG_MUX_0_1			(0x0000) // Differential P=AIN0, N=AIN1 (Default)
 #define ADS_REG_CONFIG_MUX_0_3			(0x1000) // Differential P=AIN0, N=AIN3
 #define ADS_REG_CONFIG_MUX_1_3			(0x2000) // Differential P=AIN1, N=AIN3
@@ -72,11 +65,26 @@
 // PGA (PROGRAMMABLE GAIN AMPLIFIER)
 // --------------------------------------------
 
+#define ADS_REG_CONFIG_PGA_MASK     	(0x0E00)
 #define ADS_REG_CONFIG_PGA_6_144V   	(0x0000) // +/-6.144V range
 #define ADS_REG_CONFIG_PGA_4_096V   	(0x0200) // +/-4.096V range
 #define ADS_REG_CONFIG_PGA_2_048V   	(0x0400) // +/-2.048V range (Default)
 #define ADS_REG_CONFIG_PGA_1_024V   	(0x0600) // +/-1.024V range
 #define ADS_REG_CONFIG_PGA_0_512V   	(0x0800) // +/-0.512V range
 #define ADS_REG_CONFIG_PGA_0_256V   	(0x0A00) // +/-0.256V range
+
+// --------------------------------------------
+// MODE (DEVICE OPERATING MODE)
+// --------------------------------------------
+
+#define ADS_REG_CONFIG_MODE_MASK    	(0x0100)
+#define ADS_REG_CONFIG_MODE_CONTINIOUS  (0x0000) // Continuous-conversion mode
+#define ADS_REG_CONFIG_MODE_SINGLE  	(0x0100) // Single-shot mode or power-down state (default)
+
+#define ADS_REG_CONFIG_DR_MASK      	(0x00E0)
+#define ADS_REG_CONFIG_COMP_MODE_MASK	(0x0010)
+#define ADS_REG_CONFIG_COMP_POL_MASK	(0x0010)
+#define ADS_REG_CONFIG_COMP_POL_MASK	(0x0010)
+#define ADS_REG_CONFIG_COMP_QUE_MASK	(0x0010)
 
 #endif
