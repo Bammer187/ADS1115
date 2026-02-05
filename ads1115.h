@@ -111,7 +111,14 @@
 #define ADS_REG_CONFIG_COMP_POL_LOW		(0x0000) // Active low (default)
 #define ADS_REG_CONFIG_COMP_POL_HIGH	(0x0008) // Active high
 
+// --------------------------------------------
+// COMP LAT (LATCHING COMPARATOR)
+// --------------------------------------------
+
 #define ADS_REG_CONFIG_COMP_LAT_MASK	(0x0004)
+#define ADS_REG_CONFIG_COMP_LAT_OFF		(0x0000) // Non-latching (Default)
+#define ADS_REG_CONFIG_COMP_LAT_ON		(0x0004) // Latching (stays active until read)
+
 #define ADS_REG_CONFIG_COMP_QUE_MASK	(0x0003)
 
 #endif
