@@ -225,4 +225,19 @@ int16_t ads1115_differential_0_1(ads1115_t *ads);
  */
 int16_t ads1115_differential_0_3(ads1115_t *ads);
 
+/**
+ * @brief Performs a differential measurement between AIN0 and AIN3.
+ *
+ * 		  This function configures the ADS1115 to measure the voltage difference 
+ * 		  between AIN1 (positive input) and AIN3 (negative input). It triggers a 
+ * 		  single-shot conversion and waits for the result.
+ *
+ * @param ads  Pointer to the ADS1115 device structure.
+ *
+ * @return 
+ * 		  - The signed 16-bit raw conversion result (range: -32768 to 32767).
+ * 		  - 0 if a communication error occurs.
+ */
+int16_t ads1115_differential_1_3(ads1115_t *ads);
+
 #endif
