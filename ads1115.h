@@ -195,4 +195,20 @@ void ads1115_set_gain(ads1115_t *ads, ads1115_fsr_t gain);
  */
 uint16_t ads1115_get_raw(ads1115_t *ads, uint8_t channel)
 
+
+/**
+ * @brief Performs a differential measurement between AIN0 and AIN1.
+ *
+ * 		  This function configures the ADS1115 to measure the voltage difference 
+ * 		  between AIN0 (positive input) and AIN1 (negative input). It triggers a 
+ * 		  single-shot conversion and waits for the result.
+ *
+ * @param ads  Pointer to the ADS1115 device structure.
+ *
+ * @return 
+ * 		  - The signed 16-bit raw conversion result (range: -32768 to 32767).
+ * 		  - 0 if a communication error occurs.
+ */
+int16_t ads1115_differential_0_1(ads1115_t *ads);
+
 #endif
