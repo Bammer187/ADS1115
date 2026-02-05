@@ -179,4 +179,20 @@ ads1115_t ads1115_init(i2c_master_dev_handle_t handle, uint16_t addr);
  */
 void ads1115_set_gain(ads1115_t *ads, ads1115_fsr_t gain);
 
+/**
+ * @brief Performs a single-shot measurement on a specific input channel.
+ *
+ * 		  This function updates the multiplexer (MUX) for the desired channel, triggers 
+ * 		  a single analog-to-digital conversion, and waits for the device to complete 
+ * 		  the process by polling the Operational Status (OS) bit. 
+ *
+ * @param ads      Pointer to the ADS1115 device structure.
+ * @param channel  The input channel to measure (0-3 for single-ended measurements).
+ *
+ * @return 
+ * 		  - The 16-bit raw conversion result (0 to 32767 for positive voltages).
+ * 		  - 0 if an invalid channel is provided or a communication error occurs.
+ */
+uint16_t ads1115_get_raw(ads1115_t *ads, uint8_t channel)
+
 #endif
