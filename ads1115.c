@@ -80,70 +80,53 @@ uint16_t ads1115_get_raw(ads1115_t *ads, uint8_t channel)
 }
 
 
-int16_t ads1115_differential_0_1(ads1115_t *ads)
+/**
+ * @brief Internal helper to perform a measurement with a specific MUX configuration.
+ */
+static int16_t measure_differential(ads1115_t *ads, uint16_t mux_setting)
 {
-	ads->config |= ADS_REG_CONFIG_OS_START;
+    if (ads == NULL) return 0;
 
-	ads->config &= ~ADS_REG_CONFIG_MUX_MASK;
+    ads->config &= ~ADS_REG_CONFIG_MUX_MASK;
+    ads->config |= mux_setting;
+    ads->config |= ADS_REG_CONFIG_OS_SINGLE;
 
-	ads->config |= ADS_REG_CONFIG_MUX_0_1;
 
-	ESP_ERROR_CHECK(write_register(ads, ADS_REG_CONFIG, ads->config));
+    if (write_register(ads, ADS1115_CONFIG_REGISTER_ADDR, ads->config) != ESP_OK) {
+        return 0;
+    }
 
-	uint16_t status = 0;
+    uint16_t status = 0;
     do {
         read_register(ads, ADS1115_CONFIG_REGISTER_ADDR, &status);
     } while ((status & ADS_REG_CONFIG_OS_MASK) == 0);
 
-	uint16_t raw_value;
+    uint16_t raw_value = 0;
+    read_register(ads, ADS1115_CONVERSION_REGISTER_ADDR, &raw_value);
 
-	ESP_ERROR_CHECK(read_register(ads, ADS_REG_CONVERSION, &raw_value));
+    return (int16_t)raw_value;
+}
 
-	return (int16_t)raw_value;
+
+int16_t ads1115_differential_0_1(ads1115_t *ads)
+{
+    return measure_differential(ads, ADS_REG_CONFIG_MUX_DIFF_0_1);
 }
 
 
 int16_t ads1115_differential_0_3(ads1115_t *ads)
 {
-	ads->config |= ADS_REG_CONFIG_OS_START;
-
-	ads->config &= ~ADS_REG_CONFIG_MUX_MASK;
-
-	ads->config |= ADS_REG_CONFIG_MUX_0_3;
-
-	ESP_ERROR_CHECK(write_register(ads, ADS_REG_CONFIG, ads->config));
-
-	uint16_t status = 0;
-    do {
-        read_register(ads, ADS1115_CONFIG_REGISTER_ADDR, &status);
-    } while ((status & ADS_REG_CONFIG_OS_MASK) == 0);
-
-	uint16_t raw_value;
-
-	ESP_ERROR_CHECK(read_register(ads, ADS_REG_CONVERSION, &raw_value));
-
-	return (int16_t)raw_value;
+    return measure_differential(ads, ADS_REG_CONFIG_MUX_DIFF_0_3);
 }
 
 
 int16_t ads1115_differential_1_3(ads1115_t *ads)
 {
-	ads->config |= ADS_REG_CONFIG_OS_START;
+    return measure_differential(ads, ADS_REG_CONFIG_MUX_DIFF_1_3);
+}
 
-	ads->config &= ~ADS_REG_CONFIG_MUX_MASK;
 
-	ads->config |= ADS_REG_CONFIG_MUX_1_3;
-
-	ESP_ERROR_CHECK(write_register(ads, ADS_REG_CONFIG, ads->config));
-
-	uint16_t status = 0;
-    do {
-        read_register(ads, ADS1115_CONFIG_REGISTER_ADDR, &status);
-    } while ((status & ADS_REG_CONFIG_OS_MASK) == 0);
-
-	uint16_t raw_value;
-
-	ESP_ERROR_CHECK(read_register(ads, ADS_REG_CONVERSION, &raw_value));
-
-	return (int16_t)raw_value;
+int16_t ads1115_differential_2_3(ads1115_t *ads)
+{
+    return measure_differential(ads, ADS_REG_CONFIG_MUX_DIFF_2_3);
 }
