@@ -10,8 +10,26 @@ static esp_err_t write_register(ads1115_t *ads, uint8_t reg, uint16_t data)
     buffer[0] = reg;
     buffer[1] = (uint8_t)(data >> 8);   // MSB
     buffer[2] = (uint8_t)(data & 0xFF); // LSB
-    
+
     return i2c_master_transmit(ads->i2c_handle, buffer, sizeof(buffer), -1);
+}
+
+
+static esp_err_t read_register(asd111t_t *ads, uint8_t reg, uint16_t *out)
+{
+	if (ads == NULL || ads->i2c_handle == NULL) {
+        return ESP_ERR_INVALID_ARG;
+    }
+
+    uint8_t buffer[2];
+
+    esp_err_t ret =  i2c_master_transmit_receive(ads->i2c_handle, &reg, 1, out, 2, -1);
+
+    if (ret == ESP_OK) {
+        *out = (uint16_t)((buffer[0] << 8) | buffer[1]);
+    }
+
+    return ret;
 }
 
 
