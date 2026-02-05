@@ -55,4 +55,17 @@
 #define ADS_REG_CONFIG_OS_ACTIVE	(0x0000) // Currently performing a conversion
 #define ADS_REG_CONFIG_OS_IDLE		(0x8000) // Not performing a conversion
 
+// --------------------------------------------
+// MUX (INPUT MULTIPLEXER CONFIGURATION)
+// --------------------------------------------
+
+#define ADS_REG_CONFIG_MUX_0_1			(0x0000) // Differential P=AIN0, N=AIN1 (Default)
+#define ADS_REG_CONFIG_MUX_0_3			(0x1000) // Differential P=AIN0, N=AIN3
+#define ADS_REG_CONFIG_MUX_1_3			(0x2000) // Differential P=AIN1, N=AIN3
+#define ADS_REG_CONFIG_MUX_2_3			(0x3000) // Differential P=AIN2, N=AIN3
+#define ADS_REG_CONFIG_MUX_0_GND		(0x4000) // Single-ended AIN0
+#define ADS_REG_CONFIG_MUX_1_GND		(0x5000) // Single-ended AIN1
+#define ADS_REG_CONFIG_MUX_2_GND		(0x6000) // Single-ended AIN2
+#define ADS_REG_CONFIG_MUX_3_GND		(0x7000) // Single-ended AIN3
+
 #endif
