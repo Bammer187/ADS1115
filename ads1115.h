@@ -143,10 +143,22 @@ typedef enum {
     ADS_FSR_0_256V = ADS_REG_CONFIG_PGA_0_256V
 }ads1115_fsr_t;
 
+typedef enum {
+	ADS_SPS_8   = ADS_REG_CONFIG_DR_8SPS,
+	ADS_SPS_16  = ADS_REG_CONFIG_DR_16SPS,
+	ADS_SPS_32  = ADS_REG_CONFIG_DR_32SPS,
+	ADS_SPS_64  = ADS_REG_CONFIG_DR_64PS,
+	ADS_SPS_128 = ADS_REG_CONFIG_DR_128PS,
+	ADS_SPS_250 = ADS_REG_CONFIG_DR_250SPS,
+	ADS_SPS_475 = ADS_REG_CONFIG_DR_470SPS,
+	ADS_SPS_860 = ADS_REG_CONFIG_DR_860SPS,
+}ads1115_sps_t;
+
 typedef struct {
 	uint16_t address;
 	i2c_master_dev_handle_t i2c_handle;
 	ads1115_fsr_t gain;
+	ads1115_sps_t sps;
 	uint16_t config;
 }ads1115_t;
 
@@ -180,6 +192,19 @@ ads1115_t ads1115_init(i2c_master_dev_handle_t handle, uint16_t addr);
 void ads1115_set_gain(ads1115_t *ads, ads1115_fsr_t gain);
 
 /**
+ * @brief Set the Data Rate (DR) in the local device structure.
+ *
+ * 		  This function updates the desired samples per second (SPS) in the software 
+ * 		  configuration. Note that this only updates the local structure; the change 
+ * 		  will be applied to the physical ADS1115 hardware during the next conversion 
+ * 		  start or register sync.
+ *
+ * @param ads   Pointer to the ads1115_t device structure.
+ * @param sps   The desired sps setting from the ads1115_sps_t enum (e.g., ADS_SPS_250).
+ */
+void ads1115_set_sps(ads1115_t *ads ads1115_sps_t sps);
+
+/**
  * @brief Performs a single-shot measurement on a specific input channel.
  *
  * 		  This function updates the multiplexer (MUX) for the desired channel, triggers 
@@ -193,7 +218,7 @@ void ads1115_set_gain(ads1115_t *ads, ads1115_fsr_t gain);
  * 		  - The 16-bit raw conversion result (0 to 32767 for positive voltages).
  * 		  - 0 if an invalid channel is provided or a communication error occurs.
  */
-uint16_t ads1115_get_raw(ads1115_t *ads, uint8_t channel)
+uint16_t ads1115_get_raw(ads1115_t *ads, uint8_t channel);
 
 /**
  * @brief Performs a differential measurement between AIN0 and AIN1.

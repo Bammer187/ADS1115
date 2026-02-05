@@ -39,6 +39,7 @@ ads1115_t ads1115_init(i2c_master_dev_handle_t handle, uint16_t addr)
     ads.i2c_handle = handle;
     ads.address = addr;
     ads.gain = ADS_FSR_2_048V;
+    ads.sps = ADS_SPS_128;
     ads.config = ADS_REG_CONFIG_RESET;
     return ads;
 }
@@ -46,7 +47,19 @@ ads1115_t ads1115_init(i2c_master_dev_handle_t handle, uint16_t addr)
 
 void ads1115_set_gain(ads1115_t *ads, ads1115_fsr_t gain)
 {
-	ads->gain = gain;
+    ads->gain = gain;
+
+    ads->config &= ~ADS_REG_CONFIG_PGA_MASK;
+    ads->config |= (uint16_t)gain;
+}
+
+
+void ads1115_set_sps(ads1115_t *ads ads1115_sps_t sps)
+{
+	ads->sps = sps;
+    
+    ads->config &= ~ADS_REG_CONFIG_DR_MASK;
+    ads->config |= (uint16_t)sps;
 }
 
 
