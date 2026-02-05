@@ -33,15 +33,29 @@ static esp_err_t read_register(ads1115_t *ads, uint8_t reg, uint16_t *out)
 }
 
 
-ads1115_t ads1115_init(i2c_master_dev_handle_t handle, uint16_t addr)
+/**
+ * @brief Initializes the hardware and syncs the initial configuration.
+ *
+ * @param ads  Pointer to the device structure.
+ * @return     ESP_OK on success, ESP_FAIL if device is not responding.
+ */
+static esp_err_t ads1115_begin(ads1115_t *ads)
 {
-	ads1115_t ads;
-    ads.i2c_handle = handle;
-    ads.address = addr;
-    ads.gain = ADS_FSR_2_048V;
-    ads.sps = ADS_SPS_128;
-    ads.config = ADS_REG_CONFIG_RESET;
-    return ads;
+    ads->config = ADS_REG_CONFIG_MODE_SINGLE | ADS_REG_CONFIG_PGA_2_048V | 
+                  ADS_REG_CONFIG_DR_128SPS | ADS_REG_CONFIG_COMP_QUE_DIS;
+    
+    return write_register(ads, ADS1115_CONFIG_REGISTER_ADDR, ads->config);
+}
+
+
+esp_err_t ads1115_init(ads1115_t *ads, i2c_master_dev_handle_t handle, uint16_t addr)
+{
+    ads->i2c_handle = handle;
+    ads->address = addr;
+    ads->gain = ADS_FSR_2_048V;
+    ads->sps = ADS_SPS_128;
+    ads->config = ADS_REG_CONFIG_RESET;
+    return ads1115_begin(ads);
 }
 
 
