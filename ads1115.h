@@ -154,7 +154,6 @@ typedef enum {
 }ads1115_sps_t;
 
 typedef struct {
-	uint16_t address;
 	i2c_master_dev_handle_t i2c_handle;
 	ads1115_fsr_t gain;
 	ads1115_sps_t sps;
