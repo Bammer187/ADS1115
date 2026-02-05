@@ -141,7 +141,7 @@ typedef enum {
     ADS_FSR_1_024V = ADS_REG_CONFIG_PGA_1_024V,
     ADS_FSR_0_512V = ADS_REG_CONFIG_PGA_0_512V,
     ADS_FSR_0_256V = ADS_REG_CONFIG_PGA_0_256V
-} ads1115_fsr_t;
+}ads1115_fsr_t;
 
 typedef struct {
 	uint16_t address;
@@ -165,5 +165,18 @@ typedef struct {
  * 		  - An ads1115_t structure containing the device handle and default settings.
  */
 ads1115_t ads1115_init(i2c_master_dev_handle_t handle, uint16_t addr);
+
+/**
+ * @brief Set the Programmable Gain Amplifier (PGA) in the local device structure.
+ *
+ * 		  This function updates the desired full-scale range (FSR) in the software 
+ * 		  configuration. Note that this only updates the local structure; the change 
+ * 		  will be applied to the physical ADS1115 hardware during the next conversion 
+ * 		  start or register sync.
+ *
+ * @param ads   Pointer to the ads1115_t device structure.
+ * @param gain  The desired gain setting from the ads1115_fsr_t enum (e.g., ADS_FSR_4_096V).
+ */
+void ads1115_set_gain(ads1115_t *ads, ads1115_fsr_t gain);
 
 #endif
