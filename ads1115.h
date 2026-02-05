@@ -81,7 +81,20 @@
 #define ADS_REG_CONFIG_MODE_CONTINIOUS  (0x0000) // Continuous-conversion mode
 #define ADS_REG_CONFIG_MODE_SINGLE  	(0x0100) // Single-shot mode or power-down state (default)
 
+// --------------------------------------------
+// DR (DATA RATE / SPS = SAMPLES PER SECOND)
+// --------------------------------------------
+
 #define ADS_REG_CONFIG_DR_MASK      	(0x00E0)
+#define ADS_REG_CONFIG_DR_8SPS      	(0x0000)
+#define ADS_REG_CONFIG_DR_16SPS     	(0x0020)
+#define ADS_REG_CONFIG_DR_32SPS     	(0x0040)
+#define ADS_REG_CONFIG_DR_64SPS     	(0x0060)
+#define ADS_REG_CONFIG_DR_128SPS    	(0x0080) // (Default)
+#define ADS_REG_CONFIG_DR_250SPS    	(0x00A0)
+#define ADS_REG_CONFIG_DR_475SPS    	(0x00C0)
+#define ADS_REG_CONFIG_DR_860SPS    	(0x00E0)
+
 #define ADS_REG_CONFIG_COMP_MODE_MASK	(0x0010)
 #define ADS_REG_CONFIG_COMP_POL_MASK	(0x0010)
 #define ADS_REG_CONFIG_COMP_POL_MASK	(0x0010)
