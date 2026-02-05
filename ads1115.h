@@ -51,9 +51,9 @@
 // OS - OPERATIONAL STATUS
 // --------------------------------------------
 
-#define ADS_REG_CONFIG_OS_START		(0x8000) // Start a single conversion
-#define ADS_REG_CONFIG_OS_ACTIVE	(0x0000) // Currently performing a conversion
-#define ADS_REG_CONFIG_OS_IDLE		(0x8000) // Not performing a conversion
+#define ADS_REG_CONFIG_OS_START			(0x8000) // Start a single conversion
+#define ADS_REG_CONFIG_OS_ACTIVE		(0x0000) // Currently performing a conversion
+#define ADS_REG_CONFIG_OS_IDLE			(0x8000) // Not performing a conversion
 
 // --------------------------------------------
 // MUX (INPUT MULTIPLEXER CONFIGURATION)
@@ -67,5 +67,16 @@
 #define ADS_REG_CONFIG_MUX_1_GND		(0x5000) // Single-ended AIN1
 #define ADS_REG_CONFIG_MUX_2_GND		(0x6000) // Single-ended AIN2
 #define ADS_REG_CONFIG_MUX_3_GND		(0x7000) // Single-ended AIN3
+
+// --------------------------------------------
+// PGA (PROGRAMMABLE GAIN AMPLIFIER)
+// --------------------------------------------
+
+#define ADS_REG_CONFIG_PGA_6_144V   	(0x0000) // +/-6.144V range
+#define ADS_REG_CONFIG_PGA_4_096V   	(0x0200) // +/-4.096V range
+#define ADS_REG_CONFIG_PGA_2_048V   	(0x0400) // +/-2.048V range (Default)
+#define ADS_REG_CONFIG_PGA_1_024V   	(0x0600) // +/-1.024V range
+#define ADS_REG_CONFIG_PGA_0_512V   	(0x0800) // +/-0.512V range
+#define ADS_REG_CONFIG_PGA_0_256V   	(0x0A00) // +/-0.256V range
 
 #endif
