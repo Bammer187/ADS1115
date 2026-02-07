@@ -51,8 +51,6 @@ static esp_err_t ads1115_begin(ads1115_t *ads)
 esp_err_t ads1115_init(ads1115_t *ads, i2c_master_dev_handle_t handle)
 {
     ads->i2c_handle = handle;
-    ads->gain = ADS_FSR_2_048V;
-    ads->sps = ADS_SPS_128;
     ads->config = ADS_REG_CONFIG_RESET;
     return ads1115_begin(ads);
 }
