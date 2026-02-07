@@ -47,8 +47,8 @@ Simple example where the data from channel 0 is read and printed.
 
 static const char *TAG = "ADS1115_TEST";
 
-#define SCL_GPIO GPIO_NUM_21
-#define SDA_GPIO GPIO_NUM_22
+#define SCL_GPIO GPIO_NUM_22
+#define SDA_GPIO GPIO_NUM_21
 
 void app_main(void)
 {
@@ -73,7 +73,7 @@ void app_main(void)
     ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &dev_cfg, &ads_handle));
 
     ads1115_t ads;
-    if (ads1115_init(&ads) != ESP_OK) {
+    if (ads1115_init(&ads, ads_handle) != ESP_OK) {
         ESP_LOGE(TAG, "ADS1115 init failed!");
         return;
     }
@@ -82,11 +82,11 @@ void app_main(void)
     ads1115_set_sps(&ads, ADS_SPS_128);
 
     while (1) {
-        int16_t raw = ads1115_get_raw(&ads, 0);
+        uint16_t raw = ads1115_get_raw(&ads, 0);
 
         float voltage = ads1115_raw_to_voltage(&ads, raw);
 
-        printf("Channel 0: Raw: %d | Voltage: %.4f V\n", raw, voltage);
+        ESP_LOGI(TAG, "Channel 0: Raw: %d | Voltage: %.4f V\n", raw, voltage);
 
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
