@@ -19,7 +19,7 @@ This is a lightweight, non-blocking C library for the ADS1115 16-bit ADC, design
 
 ### Manual Integration
 
-Copy the source files (`ads1115.c` and `ads1115.h`) into your project's components or main directory. Ensure the header file is accessible within your include path
+Copy the source files (`ads1115.c`, `ads1115.h`, `CMakeLists.txt`) into your project's components or main directory. Ensure the header file is accessible within your include path
 
 ### Add as submodule
 `git submodule add https://github.com/Bammer187/ADS1115.git components/ads1115`
@@ -92,6 +92,15 @@ void app_main(void)
     }
 }
 ```
+
+### Example CMakeLists.txt
+idf_component_register(
+  SRCS main.c
+  INCLUDE_DIRS "."
+  REQUIRES
+    esp_driver_i2c
+    ads1115
+)
 
 ## License
 
