@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2026 Lukas Bammer
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 #include "ads1115.h"
 
 static esp_err_t write_register(ads1115_t *ads, uint8_t reg, uint16_t data)
