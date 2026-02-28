@@ -26,6 +26,7 @@ static const char *TAG = "ADS1115_TEST";
 #define SDA_GPIO GPIO_NUM_21
 #define I2C_FREQUENZY 100000
 #define ADS_CHANNEL 0
+#define DELAY_MS 1000
 
 void app_main(void)
 {
@@ -56,6 +57,6 @@ void app_main(void)
 
         ESP_LOGI(TAG, "Channel 0: Raw: %d | Voltage: %.4f V\n", raw, voltage);
 
-        vTaskDelay(pdMS_TO_TICKS(1000));
+        vTaskDelay(pdMS_TO_TICKS(DELAY_MS));
     }
 }

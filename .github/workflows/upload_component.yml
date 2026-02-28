@@ -1,0 +1,16 @@
+name: Push to Espressif Component Service
+
+on:
+ push:
+  branches: [ main ]
+
+jobs:
+  upload_components:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: espressif/upload-components-ci-action@v2
+        with:
+          components: "ADS1115 : ."
+          namespace: "Bammer187"
+          api_token: ${{ secrets.ESP_COMPONENT_API_TOKEN }}
