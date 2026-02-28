@@ -176,15 +176,16 @@ typedef struct {
  *        It sets the default gain (PGA), operational mode, and initial 
  *        shadow register values required for subsequent I2C transactions.
  *
- * @param ads     Pointer to the device structure.
- * @param handle  I2C master device handle obtained from i2c_master_bus_add_device.
- * @param addr    7-bit I2C slave address of the ADS1115.
+ * @param ads           Pointer to the device structure.
+ * @param bus_handle    I2C master device handle obtained from i2c_master_bus_add_device.
+ * @param addr          7-bit I2C slave address of the ADS1115.
+ * @param i2c_frequenzy I2C clock speed in Hz.
  *
  * @return 
  *        - ESP_OK on success.
  *        - ESP_FAIL if device is not responding.
  */
-esp_err_t ads1115_init(ads1115_t *ads, i2c_master_dev_handle_t handle);
+esp_err_t ads1115_init(ads1115_t *ads, i2c_master_bus_handle_t *bus_handle, uint16_t addr, uint32_t i2c_frequenzy);
 
 /**
  * @brief Set the Programmable Gain Amplifier (PGA) in the local device structure.

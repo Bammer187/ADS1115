@@ -40,26 +40,20 @@ static esp_err_t read_register(ads1115_t *ads, uint8_t reg, uint16_t *out)
 }
 
 
-/**
- * @brief Initializes the hardware and syncs the initial configuration.
- *
- * @param ads  Pointer to the device structure.
- * @return     ESP_OK on success, ESP_FAIL if device is not responding.
- */
-static esp_err_t ads1115_begin(ads1115_t *ads)
+esp_err_t ads1115_init(ads1115_t *ads, i2c_master_bus_handle_t *bus_handle, uint16_t addr, uint32_t i2c_frequenzy)
 {
+    i2c_device_config_t dev_cfg = {
+        .dev_addr_length = I2C_ADDR_BIT_LEN_7,
+        .device_address = addr & 0x4B,
+        .scl_speed_hz = i2c_frequenzy,
+    };
+
+    ESP_ERROR_CHECK(i2c_master_bus_add_device(*bus_handle, &dev_cfg, &ads->i2c_handle));
+    ads->config = ADS_REG_CONFIG_RESET;
     ads->config = ADS_REG_CONFIG_MODE_SINGLE | ADS_REG_CONFIG_PGA_2_048V | 
                   ADS_REG_CONFIG_DR_128SPS | ADS_REG_CONFIG_COMP_QUE_DIS;
     
     return write_register(ads, ADS_REG_CONFIG_ADDRESS, ads->config);
-}
-
-
-esp_err_t ads1115_init(ads1115_t *ads, i2c_master_dev_handle_t handle)
-{
-    ads->i2c_handle = handle;
-    ads->config = ADS_REG_CONFIG_RESET;
-    return ads1115_begin(ads);
 }
 
 
