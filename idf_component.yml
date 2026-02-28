@@ -1,0 +1,4 @@
+version: "1.0.0"
+description: "ESP-IDF compatible ADS1115 Library"
+url: "https://github.com/Bammer187/ADS1115"
+license: "MIT"
